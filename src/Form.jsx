@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useLogout } from "./useLogout"
 import {doc,projectFirestore,setDoc} from "./firebase/config"
 function Form()
 {
@@ -10,7 +9,6 @@ function Form()
     const [dob,setDateOfBirth] = useState("")
     const [district,setDistrict] = useState("")
     const[voter_id,setVoterId] =useState("")
-    const {logout} = useLogout()
 
     const handleSubmit= async(e)=>{
         e.preventDefault()
@@ -24,7 +22,6 @@ function Form()
         try{
             await setDoc(doc(projectFirestore,data['district'],data['voter_id']),data)
             alert("Your vote is recorded")
-            logout
         }
         catch(error)
         {
