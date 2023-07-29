@@ -1,7 +1,30 @@
+import { setPersistence } from "firebase/auth"
 import { useState } from "react"
+import {BrowserRouter,Routes,Route} from "react-router-dom"
+import {createUserWithEmailAndPassword,projectAuth} from "./firebase/config"
+
 function App() {
-  const [name,setName] = useState("")
-  const [phone,setPhone] = useState("")
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+  const handleSubmit= async(e)=>{
+    e.preventDefault()
+    try{
+      const res=await createUserWithEmailAndPassword(projectAuth,email,password)
+      if(res)
+      {
+        alert("Panchayat Ward Email Authenticated")
+      }
+      if(!res)
+      {
+        throw new Error("Could not complete signup")
+      }
+    }
+    catch(error)
+    {
+      console.log(error)
+    }
+
+  }
 
   return (
 <div className="relative overflow-hidden">
@@ -17,18 +40,20 @@ function App() {
 
       <div className="mt-8 grid">
        
-      </div> <div className="py-6 flex items-center text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:mr-6 after:flex-[1_1_0%] after:border-t after:ml-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600"></div> <form> <div className="mb-4">
-          <label for="hs-hero-name-2" className="block text-sm font-medium dark:text-white"><span className="sr-only">Full name</span></label>
-          <input type="text" id="full_name" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" onChange={(e)=>setName(e.target.value)} value={name} placeholder="Full name"/>
+      </div> <div className="py-6 flex items-center text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:mr-6 after:flex-[1_1_0%] after:border-t after:ml-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600"></div>
+       <form onSubmit={handleSubmit} method="POST"> 
+        <div className="mb-4">
+          <label htmlFor="hs-hero-name-2" className="block text-sm font-medium dark:text-white"><span className="sr-only">Full name</span></label>
+          <input type="text" id="full_name" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" onChange={(e)=>setEmail(e.target.value)} value={email} placeholder="email id"/>
         </div>
 
         <div className="mb-4">
-          <label for="hs-hero-email-2" className="block text-sm font-medium dark:text-white"><span className="sr-only">Phone Number</span></label>
-          <input type="phone" id="phone_number" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" onChange={(e)=>setPhone(e.target.value)} value={phone} placeholder="Phone Number"/>
+          <label htmlFor="hs-hero-email-2" className="block text-sm font-medium dark:text-white"><span className="sr-only">Phone Number</span></label>
+          <input type="password" id="user_password" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" onChange={(e)=>setPassword(e.target.value)} value={password} placeholder="password"/>
         </div> 
 
         <div className="grid">
-          <button type="submit" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 sm:p-4">Get  Otp</button>
+          <button type="submit" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 sm:p-4">Authenticate</button>
         </div>
       </form>
     </div>

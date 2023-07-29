@@ -17,6 +17,7 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
   const projectFirestore = getFirestore(app)
   const projectAuth = getAuth(app)
+  const projectStorage=getStorage(app)
 
 
   export {query,where,getDocs,getDoc,signInWithPopup,GoogleAuthProvider,doc,updateDoc,addDoc,setDoc,ref,uploadBytes, getDownloadURL,signInWithCredential,projectFirestore,projectStorage, projectAuth, serverTimestamp,onAuthStateChanged,signInWithEmailAndPassword,signOut,createUserWithEmailAndPassword,collection,updateProfile,onSnapshot,sendPasswordResetEmail} 
