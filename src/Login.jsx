@@ -13,7 +13,7 @@ function Login() {
       if(res)
       {
         alert("Panchayat Ward Email Authenticated")
-        dispatchEvent({type:"LOGIN",payload:res.user})
+        dispatch({type:"LOGIN",payload:res.user})
         
       }
       if(!res)
@@ -43,7 +43,7 @@ function Login() {
       <div className="mt-8 grid">
        
       </div> <div className="py-6 flex items-center text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:mr-6 after:flex-[1_1_0%] after:border-t after:ml-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600"></div>
-       <form onSubmit={handleSubmit} method="POST"> 
+       <form onSubmit={handleSubmit} method="post"> 
         <div className="mb-4">
           <label htmlFor="hs-hero-name-2" className="block text-sm font-medium dark:text-white"><span className="sr-only">Full name</span></label>
           <input type="text" id="full_name" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" onChange={(e)=>setEmail(e.target.value)} value={email} placeholder="email id"/>

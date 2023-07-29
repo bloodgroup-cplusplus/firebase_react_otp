@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { useLogout } from "./useLogout"
+import {doc,projectFirestore,setDoc} from "./firebase/config"
 function Form()
 {
     const [vote,setVote] = useState("")
@@ -8,10 +10,26 @@ function Form()
     const [dob,setDateOfBirth] = useState("")
     const [district,setDistrict] = useState("")
     const[voter_id,setVoterId] =useState("")
+    const {logout} = useLogout()
 
     const handleSubmit= async(e)=>{
-
         e.preventDefault()
+
+        const data={
+            vote,
+            ward,
+            voter_id,
+            district
+        }
+        try{
+            await setDoc(doc(projectFirestore,data['district'],data['voter_id']),data)
+            alert("Your vote is recorded")
+            logout
+        }
+        catch(error)
+        {
+            console.log(error)
+        }
     }
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -27,7 +45,7 @@ function Form()
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Cast Your Vote Here
               </h1>
-              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit} method="POST">
                 <div>
 
                 </div>
