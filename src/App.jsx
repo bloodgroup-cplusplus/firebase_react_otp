@@ -5,6 +5,7 @@ import Form from "./Form";
 function App()
 {
     const {authIsReady,user} = useAuthContext()
+    console.log("This is the user",user)
     return (
         <div>
         {authIsReady && (
